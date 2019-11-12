@@ -15,12 +15,11 @@ using System.Windows.Shapes;
 
 namespace ProyectoFinalSenales {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for StartMenu.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-        public MainWindow() {
+    public partial class StartMenu : UserControl {
+        public StartMenu() {
             InitializeComponent();
-            mainGrid.Children.Add(new GameBoard());
         }
     }
 }
