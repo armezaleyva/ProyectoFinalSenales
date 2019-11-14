@@ -18,7 +18,7 @@ namespace ProyectoFinalSenales {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        public enum GameState { Menu, Reset, Await, Player1, Player2 }
+        public enum GameState { Menu, Reset, Player1, Player2 }
         public static GameState gameState = GameState.Menu;
 
         public MainWindow() {
@@ -31,16 +31,55 @@ namespace ProyectoFinalSenales {
                 case GameState.Menu:
                     mainGrid.Children.Clear();
                     mainGrid.Children.Add(new StartMenu());
+
+                    HideUI();
                     break;
 
                 case GameState.Reset:
                     mainGrid.Children.Clear();
                     mainGrid.Children.Add(new GameBoard());
+
+                    HideUI();
+                    btnRecord.Visibility = Visibility.Visible;
+                    lblCurrentTurn.Visibility = Visibility.Visible;
+
+                    lblPlayer1.Visibility = Visibility.Visible;
+                    lblPlayer2.Visibility = Visibility.Visible;
+                    polPlayer2.Visibility = Visibility.Visible;
+                    break;
+
+
+                case GameState.Player1:
+                    HideUI();
+                    lblRecording.Visibility = Visibility.Visible;
+                    lblCurrentTurn.Visibility = Visibility.Visible;
+                    lblPlayer1.Visibility = Visibility.Visible;
+                    lblPlayer2.Visibility = Visibility.Visible;
+                    polPlayer1.Visibility = Visibility.Visible;
+                    break;
+
+                case GameState.Player2:
+                    HideUI();
+                    lblRecording.Visibility = Visibility.Visible;
+                    lblCurrentTurn.Visibility = Visibility.Visible;
+                    lblPlayer1.Visibility = Visibility.Visible;
+                    lblPlayer2.Visibility = Visibility.Visible;
+                    polPlayer2.Visibility = Visibility.Visible;
                     break;
 
                 default:
                     throw new Exception("Illegal Game State, this should not be possible");
             }
+        }
+
+        public void HideUI() {
+            lblRecording.Visibility = Visibility.Hidden;
+            btnRecord.Visibility = Visibility.Hidden;
+            polPlayer1.Visibility = Visibility.Hidden;
+            polPlayer2.Visibility = Visibility.Hidden;
+            lblPlayer1.Visibility = Visibility.Hidden;
+            lblPlayer2.Visibility = Visibility.Hidden;
+            lblCurrentTurn.Visibility = Visibility.Hidden;
         }
     }
 }
