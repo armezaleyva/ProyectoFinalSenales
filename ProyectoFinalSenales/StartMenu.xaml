@@ -22,7 +22,7 @@
         </Grid.ColumnDefinitions>
 
         <Image Grid.Column="1" Grid.Row="0"></Image>
-        <Button Grid.Column="1" Grid.Row="2" Name="btnStart">INICIAR</Button>
-        <Button Grid.Column="1" Grid.Row="4" Name="btnExit">SALIR</Button>
+        <Button Grid.Column="1" Grid.Row="2" Name="btnStart" Click="BtnStart_Click">JUGAR</Button>
+        <Button Grid.Column="1" Grid.Row="4" Name="btnExit" Click="BtnExit_Click">SALIR</Button>
     </Grid>
 </UserControl>

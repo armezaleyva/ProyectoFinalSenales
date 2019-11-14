@@ -18,9 +18,29 @@ namespace ProyectoFinalSenales {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+        public enum GameState { Menu, Reset, Await, Player1, Player2 }
+        public static GameState gameState = GameState.Menu;
+
         public MainWindow() {
             InitializeComponent();
-            mainGrid.Children.Add(new GameBoard());
+            Update();
+        }
+
+        public void Update() {
+            switch(gameState) {
+                case GameState.Menu:
+                    mainGrid.Children.Clear();
+                    mainGrid.Children.Add(new StartMenu());
+                    break;
+
+                case GameState.Reset:
+                    mainGrid.Children.Clear();
+                    mainGrid.Children.Add(new GameBoard());
+                    break;
+
+                default:
+                    throw new Exception("Illegal Game State, this should not be possible");
+            }
         }
     }
 }

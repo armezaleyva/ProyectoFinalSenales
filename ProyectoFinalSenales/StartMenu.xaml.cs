@@ -21,5 +21,14 @@ namespace ProyectoFinalSenales {
         public StartMenu() {
             InitializeComponent();
         }
+
+        private void BtnStart_Click(object sender, RoutedEventArgs e) {
+            MainWindow.gameState = MainWindow.GameState.Reset;
+            (Application.Current.MainWindow as MainWindow).Update();
+        }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e) {
+            Application.Current.Shutdown();
+        }
     }
 }
