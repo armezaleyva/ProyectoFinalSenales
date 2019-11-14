@@ -7,6 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <Grid x:Name="boardGrid">
+        <Grid.Resources>
+            <Style TargetType="Border">
+                <Setter Property="Padding" Value="-50,-50,-50,-50" />
+            </Style>
+        </Grid.Resources>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="33*" />
             <RowDefinition Height="33*" />
@@ -17,7 +23,5 @@
             <ColumnDefinition Width="33*" />
             <ColumnDefinition Width="33*" />
         </Grid.ColumnDefinitions>
-        
-        
     </Grid>
 </UserControl>

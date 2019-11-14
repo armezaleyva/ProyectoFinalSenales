@@ -30,6 +30,11 @@ namespace ProyectoFinalSenales {
             AddToGridCell(new Vector(1, 1));
             AddToGridCell(new Vector(1, 2));
             AddToGridCell(new Vector(2, 2));
+
+            MainWindow.gameState = MainWindow.GameState.Player2;
+            AddToGridCell(new Vector(1, 1));
+            AddToGridCell(new Vector(0, 0));
+            AddToGridCell(new Vector(0, 2));
         }
 
         public void CreateBoard() {
@@ -42,11 +47,12 @@ namespace ProyectoFinalSenales {
         }
 
         public void AddToGridCell(Vector gridCoordinates) {
-            bool canAdd = IsGridCellEmpty(gridCoordinates);
+            GridCellState gridCellState = (GridCellState)board[gridCoordinates];
+            bool canAdd = IsGridCellEmpty(gridCoordinates, gridCellState);
 
             if (canAdd) {
                 Image imgGridCell = new Image();
-                BitmapImage imgSource = DetermineImageToAdd();
+                BitmapImage imgSource = DetermineImageAndUpdateState(gridCoordinates);
 
                 Grid.SetColumn(imgGridCell, (int)gridCoordinates.X);
                 Grid.SetRow(imgGridCell, (int)gridCoordinates.Y);
@@ -56,9 +62,8 @@ namespace ProyectoFinalSenales {
             }
         }
 
-        public bool IsGridCellEmpty(Vector gridCoordinates) {
+        public bool IsGridCellEmpty(Vector gridCoordinates, GridCellState gridCellState) {
             bool isEmpty;
-            GridCellState gridCellState = (GridCellState)board[gridCoordinates];
 
             if (gridCellState == GridCellState.Empty) {
                 isEmpty = true;
@@ -70,18 +75,20 @@ namespace ProyectoFinalSenales {
             return isEmpty;
         }
 
-        public BitmapImage DetermineImageToAdd() {
+        public BitmapImage DetermineImageAndUpdateState(Vector gridCoordinates) {
             BitmapImage imgGridCell;
 
             switch (MainWindow.gameState) {
                 case MainWindow.GameState.Player1:
                     imgGridCell = new BitmapImage(new Uri(
                     "/Assets/Icons/X.png", UriKind.Relative));
+                    board[gridCoordinates] = GridCellState.X;
                     break;
 
                 case MainWindow.GameState.Player2:
                     imgGridCell = new BitmapImage(new Uri(
                     "/Assets/Icons/O.png", UriKind.Relative));
+                    board[gridCoordinates] = GridCellState.O;
                     break;
 
                 default:
