@@ -21,20 +21,23 @@ namespace ProyectoFinalSenales {
     public partial class GameBoard : UserControl {
         public Hashtable board;
         public enum GridCellState { Empty, X, O }
+        public int currentTurn = 0;
 
         public GameBoard() {
             InitializeComponent();
             CreateBoard();
 
+            MainWindow.gameState = MainWindow.GameState.Player2;
+            //AddToGridCell(new Vector(1, 1));
+            AddToGridCell(new Vector(0, 0));
+            AddToGridCell(new Vector(0, 2));
+            AddToGridCell(new Vector(2, 1));
+
             MainWindow.gameState = MainWindow.GameState.Player1;
             AddToGridCell(new Vector(1, 1));
             AddToGridCell(new Vector(1, 2));
             AddToGridCell(new Vector(2, 2));
-
-            MainWindow.gameState = MainWindow.GameState.Player2;
-            AddToGridCell(new Vector(1, 1));
-            AddToGridCell(new Vector(0, 0));
-            AddToGridCell(new Vector(0, 2));
+            AddToGridCell(new Vector(1, 0));
         }
 
         public void CreateBoard() {
@@ -44,11 +47,13 @@ namespace ProyectoFinalSenales {
                     board.Add(new Vector(i, j), GridCellState.Empty);
                 }
             }
+
+            currentTurn = 0;
         }
 
         public void AddToGridCell(Vector gridCoordinates) {
             GridCellState gridCellState = (GridCellState)board[gridCoordinates];
-            bool canAdd = IsGridCellEmpty(gridCoordinates, gridCellState);
+            bool canAdd = IsGridCellEmpty(gridCoordinates);
 
             if (canAdd) {
                 Image imgGridCell = new Image();
@@ -59,11 +64,18 @@ namespace ProyectoFinalSenales {
 
                 imgGridCell.Source = imgSource;
                 boardGrid.Children.Add(imgGridCell);
+
+                currentTurn++;
+
+                if (currentTurn >= 6) {
+                    DetermineIfGameOver(gridCoordinates);
+                }
             }
         }
 
-        public bool IsGridCellEmpty(Vector gridCoordinates, GridCellState gridCellState) {
+        public bool IsGridCellEmpty(Vector gridCoordinates) {
             bool isEmpty;
+            GridCellState gridCellState = (GridCellState)board[gridCoordinates];
 
             if (gridCellState == GridCellState.Empty) {
                 isEmpty = true;
@@ -73,6 +85,34 @@ namespace ProyectoFinalSenales {
             }
 
             return isEmpty;
+        }
+
+        public bool IsGridCellX(Vector gridCoordinates) {
+            bool isX;
+            GridCellState gridCellState = (GridCellState)board[gridCoordinates];
+
+            if (gridCellState == GridCellState.X) {
+                isX = true;
+            }
+            else {
+                isX = false;
+            }
+
+            return isX;
+        }
+
+        public bool IsGridCellO(Vector gridCoordinates) {
+            bool isO;
+            GridCellState gridCellState = (GridCellState)board[gridCoordinates];
+
+            if (gridCellState == GridCellState.O) {
+                isO = true;
+            }
+            else {
+                isO = false;
+            }
+
+            return isO;
         }
 
         public BitmapImage DetermineImageAndUpdateState(Vector gridCoordinates) {
@@ -96,6 +136,111 @@ namespace ProyectoFinalSenales {
             }
 
             return imgGridCell;
+        }
+
+        public void DetermineIfGameOver(Vector moveMade) {
+            int x = (int)moveMade.X;
+            int y = (int)moveMade.Y;
+
+            if (MainWindow.gameState == MainWindow.GameState.Player1) {
+                // Check Xs
+                for (int i = 0; i < 3; i++) {
+                    Vector coordinates = new Vector(i, y);
+                    if (!IsGridCellX(coordinates)) {
+                        break;
+                    }
+                    if (i == 2) {
+                        Console.WriteLine("X wins");
+                    }
+                }
+
+                // Check Ys
+                for (int j = 0; j < 3; j++) {
+                    Vector coordinates = new Vector(x, j);
+                    if (!IsGridCellX(coordinates)) {
+                        break;
+                    }
+                    if (j == 2) {
+                        Console.WriteLine("X wins");
+                    }
+                }
+
+                // Diagonal
+                if (x == y) {
+                    for (int k = 0; k < 3; k++) {
+                        Vector coordinates = new Vector(k, k);
+                        if (!IsGridCellX(coordinates)) {
+                            break;
+                        }
+                        if (k == 2) {
+                            Console.WriteLine("X wins");
+                        }
+                    }
+                }
+
+                // Other diagonal
+                else if (x + y == 2 || (x == 1 && y == 1)) {
+                    for (int l = 0; l < 3; l++) {
+                        Vector coordinates = new Vector(l, 2 - l);
+                        if (!IsGridCellX(coordinates)) {
+                            break;
+                        }
+                        if (l == 2) {
+                            Console.WriteLine("X wins");
+                        }
+                    }
+                }
+            }
+
+            else {
+                // Check Xs
+                for (int i = 0; i < 3; i++) {
+                    Vector coordinates = new Vector(i, y);
+                    if (!IsGridCellO(coordinates)) {
+                        break;
+                    }
+                    if (i == 2) {
+                        // O wins
+                    }
+                }
+
+                // Check Ys
+                for (int j = 0; j < 3; j++) {
+                    Vector coordinates = new Vector(x, j);
+                    if (!IsGridCellO(coordinates)) {
+                        break;
+                    }
+                    if (j == 2) {
+                        // O wins
+                    }
+                }
+
+                // Diagonal
+                if (x == y) {
+                    for (int k = 0; k < 3; k++) {
+                        Vector coordinates = new Vector(k, k);
+                        if (!IsGridCellO(coordinates)) {
+                            break;
+                        }
+                        if (k == 2) {
+                            // O wins
+                        }
+                    }
+                }
+
+                // Other diagonal
+                else if (x + y == 2 || (x == 1 && y == 1)) {
+                    for (int l = 0; l < 3; l++) {
+                        Vector coordinates = new Vector(l, 2 - l);
+                        if (!IsGridCellO(coordinates)) {
+                            break;
+                        }
+                        if (l == 2) {
+                            // O wins
+                        }
+                    }
+                }
+            }
         }
     }
 }
