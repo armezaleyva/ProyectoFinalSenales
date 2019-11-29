@@ -9,7 +9,7 @@
     <Grid Background="#FF77EA74">
         <Grid x:Name="mainGrid" HorizontalAlignment="Left" Height="400" Margin="0,217,-6.4,0" VerticalAlignment="Top" Width="400"/>
         <TextBlock x:Name="lblRecording" HorizontalAlignment="Left" Margin="112,650,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36"><Run Text="Grabando..."/></TextBlock>
-        <Button x:Name="btnRecord" Content="Start recording" HorizontalAlignment="Left" Margin="51,644,0,0" VerticalAlignment="Top" Width="300" FontSize="28" Height="44" Click="BtnRecord_Click"/>
+        <Button x:Name="btnRecord" Content="Empezar a grabar" HorizontalAlignment="Left" Margin="51,644,0,0" VerticalAlignment="Top" Width="300" FontSize="28" Height="44" Click="BtnRecord_Click"/>
         <Label x:Name="lblPlayer1" Content="Player 1" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" FontSize="36"/>
         <Label x:Name="lblPlayer2" Content="Player 2" HorizontalAlignment="Left" Margin="248,114,0,0" VerticalAlignment="Top" FontSize="36"/>
         <Label x:Name="lblCurrentTurn" Content="Turno actual:" HorizontalAlignment="Left" Margin="127,25,0,0" VerticalAlignment="Top" FontSize="24"/>

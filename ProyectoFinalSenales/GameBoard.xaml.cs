@@ -66,7 +66,7 @@ namespace ProyectoFinalSenales {
             }
         }
 
-        public void AddToGridCell(Vector gridCoordinates) {
+        public bool AddToGridCell(Vector gridCoordinates) {
             GridCellState gridCellState = (GridCellState)board[gridCoordinates];
             bool canAdd = IsGridCellEmpty(gridCoordinates);
 
@@ -86,6 +86,8 @@ namespace ProyectoFinalSenales {
                     DetermineIfGameOver(gridCoordinates);
                 }
             }
+
+            return canAdd;
         }
 
         public bool IsGridCellEmpty(Vector gridCoordinates) {

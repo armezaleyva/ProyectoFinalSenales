@@ -25,6 +25,7 @@ namespace ProyectoFinalSenales {
     public partial class MainWindow : Window {
         public enum GameState { Menu, Reset, Player1, Player2 }
         public static GameState gameState = GameState.Menu;
+        public List<Vector> currentCoordinates;
         WaveIn waveIn; //Conexion con microfono
         WaveFormat formato; //Formato de audio
 
@@ -52,13 +53,13 @@ namespace ProyectoFinalSenales {
 
                     lblPlayer1.Visibility = Visibility.Visible;
                     lblPlayer2.Visibility = Visibility.Visible;
-                    polPlayer2.Visibility = Visibility.Visible;
+                    polPlayer1.Visibility = Visibility.Visible;
                     break;
 
 
                 case GameState.Player1:
                     HideUI();
-                    lblRecording.Visibility = Visibility.Visible;
+                    btnRecord.Visibility = Visibility.Visible;
                     lblCurrentTurn.Visibility = Visibility.Visible;
                     lblPlayer1.Visibility = Visibility.Visible;
                     lblPlayer2.Visibility = Visibility.Visible;
@@ -67,7 +68,7 @@ namespace ProyectoFinalSenales {
 
                 case GameState.Player2:
                     HideUI();
-                    lblRecording.Visibility = Visibility.Visible;
+                    btnRecord.Visibility = Visibility.Visible;
                     lblCurrentTurn.Visibility = Visibility.Visible;
                     lblPlayer1.Visibility = Visibility.Visible;
                     lblPlayer2.Visibility = Visibility.Visible;
@@ -90,6 +91,10 @@ namespace ProyectoFinalSenales {
         }
 
         private void BtnRecord_Click(object sender, RoutedEventArgs e) {
+            btnRecord.Visibility = Visibility.Hidden;
+            lblRecording.Visibility = Visibility.Visible;
+            currentCoordinates = new List<Vector>();
+
             //Inicializar la conexion
             waveIn = new WaveIn();
 
@@ -106,18 +111,35 @@ namespace ProyectoFinalSenales {
             waveIn.DataAvailable += WaveIn_DataAvailable;
 
             waveIn.StartRecording();
-            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(3000) };
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
             timer.Start();
             timer.Tick += (_, args) =>
             {
                 timer.Stop();
                 waveIn.StopRecording();
 
+                int n = currentCoordinates.Count;
+                var board = (GameBoard)mainGrid.Children[0];
+                for (int i = n - 1; i >= 0; i--) {
+                    bool couldAdd = board.AddToGridCell(currentCoordinates[i]);
+
+                    if (couldAdd) {
+                        break;
+                    }
+
+                    if (i == 0) {
+                        Console.WriteLine("AAAAA");
+                    }
+                }
+
                 if (gameState == GameState.Player1) {
                     gameState = GameState.Player2;
-                } else {
+                }
+                else {
                     gameState = GameState.Player1;
                 }
+
+                Update();
             };
         }
 
@@ -179,9 +201,9 @@ namespace ProyectoFinalSenales {
                (float)(indiceValorMaximo * formato.SampleRate)
                / (float)valoresAbsolutos.Length;
 
-            Console.WriteLine(frecuenciaFundamental.ToString("n") +" Hz");
-
             Vector coordinates = DetermineCoordinates(frecuenciaFundamental);
+            currentCoordinates.Add(coordinates);
+
             var board = (GameBoard)mainGrid.Children[0];
             board.PreviewResult(coordinates);
         }
