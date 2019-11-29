@@ -179,6 +179,7 @@ namespace ProyectoFinalSenales {
         public void DetermineIfGameOver(Vector moveMade) {
             int x = (int)moveMade.X;
             int y = (int)moveMade.Y;
+            bool won = false;
 
             if (MainWindow.gameState == MainWindow.GameState.Player1) {
                 // Check Xs
@@ -189,6 +190,7 @@ namespace ProyectoFinalSenales {
                     }
                     if (i == 2) {
                         MainWindow.gameState = MainWindow.GameState.Xwin;
+                        won = true;
                     }
                 }
 
@@ -200,6 +202,7 @@ namespace ProyectoFinalSenales {
                     }
                     if (j == 2) {
                         MainWindow.gameState = MainWindow.GameState.Xwin;
+                        won = true;
                     }
                 }
 
@@ -212,6 +215,7 @@ namespace ProyectoFinalSenales {
                         }
                         if (k == 2) {
                             MainWindow.gameState = MainWindow.GameState.Xwin;
+                            won = true;
                         }
                     }
                 }
@@ -225,11 +229,12 @@ namespace ProyectoFinalSenales {
                         }
                         if (l == 2) {
                             MainWindow.gameState = MainWindow.GameState.Xwin;
+                            won = true;
                         }
                     }
                 }
 
-                if (currentTurn == 9) {
+                if (currentTurn == 9 || !won) {
                     MainWindow.gameState = MainWindow.GameState.Draw;
                 }
             }
