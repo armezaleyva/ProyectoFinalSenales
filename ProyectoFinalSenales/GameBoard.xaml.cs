@@ -234,7 +234,7 @@ namespace ProyectoFinalSenales {
                     }
                 }
 
-                if (currentTurn == 9 || !won) {
+                if (currentTurn == 9 && !won) {
                     MainWindow.gameState = MainWindow.GameState.Draw;
                 }
             }
