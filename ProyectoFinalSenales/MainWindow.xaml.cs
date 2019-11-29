@@ -49,10 +49,7 @@ namespace ProyectoFinalSenales {
 
                     HideUI();
                     btnRecord.Visibility = Visibility.Visible;
-                    lblCurrentTurn.Visibility = Visibility.Visible;
-
-                    lblPlayer1.Visibility = Visibility.Visible;
-                    lblPlayer2.Visibility = Visibility.Visible;
+                    imgTurn.Visibility = Visibility.Visible;
                     polPlayer1.Visibility = Visibility.Visible;
                     break;
 
@@ -60,18 +57,14 @@ namespace ProyectoFinalSenales {
                 case GameState.Player1:
                     HideUI();
                     btnRecord.Visibility = Visibility.Visible;
-                    lblCurrentTurn.Visibility = Visibility.Visible;
-                    lblPlayer1.Visibility = Visibility.Visible;
-                    lblPlayer2.Visibility = Visibility.Visible;
+                    imgTurn.Visibility = Visibility.Visible;
                     polPlayer1.Visibility = Visibility.Visible;
                     break;
 
                 case GameState.Player2:
                     HideUI();
                     btnRecord.Visibility = Visibility.Visible;
-                    lblCurrentTurn.Visibility = Visibility.Visible;
-                    lblPlayer1.Visibility = Visibility.Visible;
-                    lblPlayer2.Visibility = Visibility.Visible;
+                    imgTurn.Visibility = Visibility.Visible;
                     polPlayer2.Visibility = Visibility.Visible;
                     break;
 
@@ -127,9 +120,7 @@ namespace ProyectoFinalSenales {
             btnRecord.Visibility = Visibility.Hidden;
             polPlayer1.Visibility = Visibility.Hidden;
             polPlayer2.Visibility = Visibility.Hidden;
-            lblPlayer1.Visibility = Visibility.Hidden;
-            lblPlayer2.Visibility = Visibility.Hidden;
-            lblCurrentTurn.Visibility = Visibility.Hidden;
+            imgTurn.Visibility = Visibility.Hidden;
         }
 
         private void BtnRecord_Click(object sender, RoutedEventArgs e) {
