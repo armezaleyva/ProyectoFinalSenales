@@ -7,8 +7,49 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <Grid>
+        <Grid.Resources>
+            <ImageBrush x:Key="btnStart" ImageSource="/Assets/btnJugar.png" Stretch="Uniform"/>
+            <ImageBrush x:Key="btnExit" ImageSource="/Assets/btnSalir.png" Stretch="Uniform"/>
+
+            <Style x:Key="btnStartStyle" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="{StaticResource btnStart}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background"  Value="{StaticResource btnStart}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="btnExitStyle" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="{StaticResource btnExit}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background"  Value="{StaticResource btnExit}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+
         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="Assets/Splash.jpeg"></Image>
-        <Button Name="btnStart" Click="BtnStart_Click" Margin="0,317,0,40" Height="43">JUGAR</Button>
-        <Button Name="btnExit" Click="BtnExit_Click" Margin="0,360,0,0" Height="40">SALIR</Button>
+        <Button x:Name="btnStart" Click="BtnStart_Click" Margin="106,310,106,47" Height="43" Style="{StaticResource btnStartStyle}" Content="" IsDefault="True" BorderBrush="{x:Null}"/>
+        <Button Name="btnExit" Click="BtnExit_Click" Margin="106,359,106,-1" Style="{StaticResource btnExitStyle}" BorderBrush="{x:Null}"/>
     </Grid>
 </UserControl>
