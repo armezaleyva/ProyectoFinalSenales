@@ -188,7 +188,7 @@ namespace ProyectoFinalSenales {
                         break;
                     }
                     if (i == 2) {
-                        Console.WriteLine("X wins");
+                        MainWindow.gameState = MainWindow.GameState.Xwin;
                     }
                 }
 
@@ -199,7 +199,7 @@ namespace ProyectoFinalSenales {
                         break;
                     }
                     if (j == 2) {
-                        Console.WriteLine("X wins");
+                        MainWindow.gameState = MainWindow.GameState.Xwin;
                     }
                 }
 
@@ -211,7 +211,7 @@ namespace ProyectoFinalSenales {
                             break;
                         }
                         if (k == 2) {
-                            Console.WriteLine("X wins");
+                            MainWindow.gameState = MainWindow.GameState.Xwin;
                         }
                     }
                 }
@@ -224,9 +224,13 @@ namespace ProyectoFinalSenales {
                             break;
                         }
                         if (l == 2) {
-                            Console.WriteLine("X wins");
+                            MainWindow.gameState = MainWindow.GameState.Xwin;
                         }
                     }
+                }
+
+                if (currentTurn == 9) {
+                    MainWindow.gameState = MainWindow.GameState.Draw;
                 }
             }
 
@@ -238,7 +242,7 @@ namespace ProyectoFinalSenales {
                         break;
                     }
                     if (i == 2) {
-                        // O wins
+                        MainWindow.gameState = MainWindow.GameState.Owin;
                     }
                 }
 
@@ -249,7 +253,7 @@ namespace ProyectoFinalSenales {
                         break;
                     }
                     if (j == 2) {
-                        // O wins
+                        MainWindow.gameState = MainWindow.GameState.Owin;
                     }
                 }
 
@@ -261,7 +265,7 @@ namespace ProyectoFinalSenales {
                             break;
                         }
                         if (k == 2) {
-                            // O wins
+                            MainWindow.gameState = MainWindow.GameState.Owin;
                         }
                     }
                 }
@@ -274,7 +278,7 @@ namespace ProyectoFinalSenales {
                             break;
                         }
                         if (l == 2) {
-                            // O wins
+                            MainWindow.gameState = MainWindow.GameState.Owin;
                         }
                     }
                 }

@@ -23,7 +23,7 @@ namespace ProyectoFinalSenales {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        public enum GameState { Menu, Reset, Player1, Player2 }
+        public enum GameState { Menu, Reset, Player1, Player2, Xwin, Owin, Draw }
         public static GameState gameState = GameState.Menu;
         public List<Vector> currentCoordinates;
         WaveIn waveIn; //Conexion con microfono
@@ -75,6 +75,48 @@ namespace ProyectoFinalSenales {
                     polPlayer2.Visibility = Visibility.Visible;
                     break;
 
+                case GameState.Xwin:
+                    HideUI();
+                    mainGrid.Children.Clear();
+                    mainGrid.Children.Add(new XwinScreen());
+
+                    var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
+                    timer.Start();
+                    timer.Tick += (_, args) => {
+                        timer.Stop();
+                        gameState = GameState.Reset;
+                        Update();
+                    };
+                    break;
+
+                case GameState.Owin:
+                    HideUI();
+                    mainGrid.Children.Clear();
+                    mainGrid.Children.Add(new OwinScreen());
+
+                    var timer2 = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
+                    timer2.Start();
+                    timer2.Tick += (_, args) => {
+                        timer2.Stop();
+                        gameState = GameState.Reset;
+                        Update();
+                    };
+                    break;
+
+                case GameState.Draw:
+                    HideUI();
+                    mainGrid.Children.Clear();
+                    mainGrid.Children.Add(new DrawScreen());
+
+                    var timer3 = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
+                    timer3.Start();
+                    timer3.Tick += (_, args) => {
+                        timer3.Stop();
+                        gameState = GameState.Reset;
+                        Update();
+                    };
+                    break;
+
                 default:
                     throw new Exception("Illegal Game State, this should not be possible");
             }
@@ -111,12 +153,13 @@ namespace ProyectoFinalSenales {
             waveIn.DataAvailable += WaveIn_DataAvailable;
 
             waveIn.StartRecording();
-            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(4000) };
             timer.Start();
             timer.Tick += (_, args) =>
             {
                 timer.Stop();
                 waveIn.StopRecording();
+                bool retry = false;
 
                 int n = currentCoordinates.Count;
                 var board = (GameBoard)mainGrid.Children[0];
@@ -128,15 +171,17 @@ namespace ProyectoFinalSenales {
                     }
 
                     if (i == 0) {
-                        Console.WriteLine("AAAAA");
+                        retry = true;
                     }
                 }
 
-                if (gameState == GameState.Player1) {
-                    gameState = GameState.Player2;
-                }
-                else {
-                    gameState = GameState.Player1;
+                if (!retry && (gameState == GameState.Player1 || gameState == GameState.Player2)) {
+                    if (gameState == GameState.Player1) {
+                        gameState = GameState.Player2;
+                    }
+                    else {
+                        gameState = GameState.Player1;
+                    }
                 }
 
                 Update();
@@ -201,6 +246,8 @@ namespace ProyectoFinalSenales {
                (float)(indiceValorMaximo * formato.SampleRate)
                / (float)valoresAbsolutos.Length;
 
+            Console.WriteLine(frecuenciaFundamental.ToString("n") + " Hz");
+
             Vector coordinates = DetermineCoordinates(frecuenciaFundamental);
             currentCoordinates.Add(coordinates);
 
@@ -211,28 +258,32 @@ namespace ProyectoFinalSenales {
         private Vector DetermineCoordinates(double frequency) {
             Vector coordinates = new Vector(0, 0);
 
-            if (frequency < 100) {
+            int s = 110; // Starting frequency
+            int f = 240;
+            int i = (f - s) / 7;
+
+            if (frequency < s) {
                 coordinates = new Vector(0, 0);
             }
-            else if (frequency >= 100 && frequency < 115) {
+            else if (frequency >= s && frequency < s + (i * 1)) {
                 coordinates = new Vector(1, 0);
             }
-            else if (frequency >= 115 && frequency < 130) {
+            else if (frequency >= s + (i * 1) && frequency < s + (i * 2)) {
                 coordinates = new Vector(2, 0);
             }
-            else if (frequency >= 130 && frequency < 145) {
+            else if (frequency >= s + (i * 2) && frequency < s + (i * 3)) {
                 coordinates = new Vector(0, 1);
             }
-            else if (frequency >= 145 && frequency < 160) {
+            else if (frequency >= s + (i * 3) && frequency < s + (i * 4)) {
                 coordinates = new Vector(1, 1);
             }
-            else if (frequency >= 160 && frequency < 175) {
+            else if (frequency >= s + (i * 4) && frequency < s + (i * 5)) {
                 coordinates = new Vector(2, 1);
             }
-            else if (frequency >= 175 && frequency < 190) {
+            else if (frequency >= s + (i * 5) && frequency < s + (i * 6)) {
                 coordinates = new Vector(0, 2);
             }
-            else if (frequency >= 190 && frequency < 205) {
+            else if (frequency >= s + (i * 6) && frequency < s + (i * 7)) {
                 coordinates = new Vector(1, 2);
             }
             else {
