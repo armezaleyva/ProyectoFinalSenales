@@ -7,12 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <Grid x:Name="boardGrid">
+        <Image HorizontalAlignment="Center" Height="426" Margin="-24,-8,-7.733,-17.733" VerticalAlignment="Center" Source="Assets/Board.jpeg" Grid.RowSpan="3" Grid.ColumnSpan="3" Panel.ZIndex="-1" Width="432"/>
         <Grid.Resources>
             <Style TargetType="Border">
                 <Setter Property="Padding" Value="-50,-50,-50,-50" />
             </Style>
         </Grid.Resources>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="33*" />
             <RowDefinition Height="33*" />
@@ -23,5 +24,6 @@
             <ColumnDefinition Width="33*" />
             <ColumnDefinition Width="33*" />
         </Grid.ColumnDefinitions>
+        
     </Grid>
 </UserControl>
