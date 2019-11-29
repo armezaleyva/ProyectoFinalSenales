@@ -13,8 +13,8 @@
         <Label x:Name="lblPlayer1" Content="Jugador 1" HorizontalAlignment="Left" Margin="1,114,0,0" VerticalAlignment="Top" FontSize="36"/>
         <Label x:Name="lblPlayer2" Content="Jugador 2" HorizontalAlignment="Left" Margin="226,114,0,0" VerticalAlignment="Top" FontSize="36"/>
         <Label x:Name="lblCurrentTurn" Content="Turno actual:" HorizontalAlignment="Left" Margin="127,25,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Polygon x:Name="polPlayer1" Points="0,0 20,30, 40,0" Stroke="Black" Fill="Black" Margin="59,84,259.6,577.8" />
-        <Polygon x:Name="polPlayer2" Points="0,0 20,30 40,0" Stroke="Black" Fill="Black" Margin="293,84,-1.4,570.8" />
+        <Image x:Name="polPlayer1" HorizontalAlignment="Left" Margin="69,87,0,0" VerticalAlignment="Top" Source="Assets/Icons/Flecha.png" Height="27" Width="21"/>
+        <Image x:Name="polPlayer2" HorizontalAlignment="Left" Margin="302,87,0,0" VerticalAlignment="Top" Source="Assets/Icons/Flecha.png" Height="27" Width="21"/>
 
     </Grid>
 </Window>
