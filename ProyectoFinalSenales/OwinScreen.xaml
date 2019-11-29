@@ -7,7 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="108,174,0,0" VerticalAlignment="Top" Width="111" Height="60"/>
-
+        <Image HorizontalAlignment="Center" Height="400" Margin="0" VerticalAlignment="Center" Width="287" Source="Assets/Owin.jpeg"/>
     </Grid>
 </UserControl>
