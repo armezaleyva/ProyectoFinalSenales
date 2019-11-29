@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ProyectoFinalSenales {
     /// <summary>
@@ -27,17 +28,7 @@ namespace ProyectoFinalSenales {
             InitializeComponent();
             CreateBoard();
 
-            MainWindow.gameState = MainWindow.GameState.Player2;
-            //AddToGridCell(new Vector(1, 1));
-            AddToGridCell(new Vector(0, 0));
-            AddToGridCell(new Vector(0, 2));
-            AddToGridCell(new Vector(2, 1));
-
             MainWindow.gameState = MainWindow.GameState.Player1;
-            AddToGridCell(new Vector(1, 1));
-            AddToGridCell(new Vector(1, 2));
-            AddToGridCell(new Vector(2, 2));
-            AddToGridCell(new Vector(1, 0));
         }
 
         public void CreateBoard() {
@@ -49,6 +40,30 @@ namespace ProyectoFinalSenales {
             }
 
             currentTurn = 0;
+        }
+
+        public void PreviewResult(Vector gridCoordinates) {
+            GridCellState gridCellState = (GridCellState)board[gridCoordinates];
+            bool canAdd = IsGridCellEmpty(gridCoordinates);
+
+            if (canAdd) {
+                Image imgGridCell = new Image();
+                BitmapImage imgSource = DetermineImage(gridCoordinates);
+
+                Grid.SetColumn(imgGridCell, (int)gridCoordinates.X);
+                Grid.SetRow(imgGridCell, (int)gridCoordinates.Y);
+
+                imgGridCell.Source = imgSource;
+                boardGrid.Children.Add(imgGridCell);
+
+                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
+                timer.Start();
+                timer.Tick += (sender, args) =>
+                {
+                    timer.Stop();
+                    boardGrid.Children.Remove(imgGridCell);
+                };
+            }
         }
 
         public void AddToGridCell(Vector gridCoordinates) {
@@ -113,6 +128,27 @@ namespace ProyectoFinalSenales {
             }
 
             return isO;
+        }
+
+        public BitmapImage DetermineImage(Vector gridCoordinates) {
+            BitmapImage imgGridCell;
+
+            switch (MainWindow.gameState) {
+                case MainWindow.GameState.Player1:
+                    imgGridCell = new BitmapImage(new Uri(
+                    "/Assets/Icons/X.png", UriKind.Relative));
+                    break;
+
+                case MainWindow.GameState.Player2:
+                    imgGridCell = new BitmapImage(new Uri(
+                    "/Assets/Icons/O.png", UriKind.Relative));
+                    break;
+
+                default:
+                    throw new Exception("Illegal Game State, this should not be possible");
+            }
+
+            return imgGridCell;
         }
 
         public BitmapImage DetermineImageAndUpdateState(Vector gridCoordinates) {
