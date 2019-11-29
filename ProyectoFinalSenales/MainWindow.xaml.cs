@@ -155,8 +155,7 @@ namespace ProyectoFinalSenales {
             waveIn.StartRecording();
             var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(4000) };
             timer.Start();
-            timer.Tick += (_, args) =>
-            {
+            timer.Tick += (_, args) => {
                 timer.Stop();
                 waveIn.StopRecording();
                 bool retry = false;
@@ -184,7 +183,17 @@ namespace ProyectoFinalSenales {
                     }
                 }
 
-                Update();
+                if (gameState == GameState.Draw || gameState == GameState.Owin || gameState == GameState.Xwin) {
+                    var timer2 = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
+                    timer2.Start();
+                    timer2.Tick += (__, ____) => {
+                        timer2.Stop();
+                        Update();
+                    };
+                }
+                else {
+                    Update();
+                }
             };
         }
 

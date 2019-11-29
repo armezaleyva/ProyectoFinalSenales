@@ -7,22 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="10*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="8*" />
-            <ColumnDefinition Width="2*" />
-        </Grid.ColumnDefinitions>
-
-        <Image Grid.Column="1" Grid.Row="0"></Image>
-        <Button Grid.Column="1" Grid.Row="2" Name="btnStart" Click="BtnStart_Click">JUGAR</Button>
-        <Button Grid.Column="1" Grid.Row="4" Name="btnExit" Click="BtnExit_Click">SALIR</Button>
+        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="Assets/Splash.jpeg"></Image>
+        <Button Name="btnStart" Click="BtnStart_Click" Margin="0,317,0,40" Height="43">JUGAR</Button>
+        <Button Name="btnExit" Click="BtnExit_Click" Margin="0,360,0,0" Height="40">SALIR</Button>
     </Grid>
 </UserControl>

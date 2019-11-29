@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <Grid>
-        <Image HorizontalAlignment="Center" Height="400" Margin="0" VerticalAlignment="Center" Width="287" Source="Assets/Empate.jpeg"/>
+        <Image HorizontalAlignment="Center" Height="400" Margin="0" VerticalAlignment="Center" Source="Assets/Empate.jpeg"/>
     </Grid>
 </UserControl>
