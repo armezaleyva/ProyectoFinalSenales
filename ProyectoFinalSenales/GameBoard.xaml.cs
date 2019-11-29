@@ -82,7 +82,7 @@ namespace ProyectoFinalSenales {
 
                 currentTurn++;
 
-                if (currentTurn >= 6) {
+                if (currentTurn >= 5) {
                     DetermineIfGameOver(gridCoordinates);
                 }
             }
